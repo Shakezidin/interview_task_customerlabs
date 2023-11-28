@@ -14,8 +14,8 @@ type chs struct {
 }
 
 func InterviewTask(ctx *gin.Context, ch chan map[string]interface{}) {
-	ls := make([]chs, 10)
-	ls2 := make([]chs, 10)
+	attributes := make([]chs, 10)
+	traits := make([]chs, 10)
 	m := map[string]string{
 		"ev":  "event",
 		"et":  "event_type",
@@ -42,33 +42,33 @@ func InterviewTask(ctx *gin.Context, ch chan map[string]interface{}) {
 	for k, v := range mp {
 		if len(k) >= 4 && k[:4] == "atrk" {
 			i, _ = strconv.Atoi(k[4:])
-			ls[i].key = v
+			attributes[i].key = v
 			continue
 		}
 		if len(k) >= 4 && k[:4] == "atrv" {
 			i, _ = strconv.Atoi(k[4:])
-			ls[i].value = v
+			attributes[i].value = v
 			continue
 		}
 		if len(k) >= 4 && k[:4] == "atrt" {
 			i, _ = strconv.Atoi(k[4:])
-			ls[i].trait = v
+			attributes[i].trait = v
 			continue
 		}
 		if len(k) >= 5 && k[:5] == "uatrk" {
 			i, _ = strconv.Atoi(k[5:])
-			ls2[i].key = v
+			traits[i].key = v
 			continue
 		}
 		if len(k) >= 5 && k[:5] == "uatrv" {
 			i, _ = strconv.Atoi(k[5:])
-			ls2[i].value = v
+			traits[i].value = v
 			continue
 
 		}
 		if len(k) >= 5 && k[:5] == "uatrt" {
 			i, _ = strconv.Atoi(k[5:])
-			ls2[i].trait = v
+			traits[i].trait = v
 			continue
 		}
 		result[m[k]] = v
@@ -77,7 +77,7 @@ func InterviewTask(ctx *gin.Context, ch chan map[string]interface{}) {
 
 	var l []map[string]interface{}
 
-	for _, k := range ls {
+	for _, k := range attributes {
 		if k.value == "" {
 			continue
 		}
@@ -91,7 +91,7 @@ func InterviewTask(ctx *gin.Context, ch chan map[string]interface{}) {
 
 	var l2 []map[string]interface{}
 
-	for _, k := range ls2 {
+	for _, k := range traits {
 		if k.value == "" {
 			continue
 		}
